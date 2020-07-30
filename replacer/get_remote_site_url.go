@@ -37,7 +37,7 @@ func GetRemoteSiteUrl(remoteUrl string) (string, error) {
 func replaceGithubUrl(remoteUrl string) string {
 	sshForm := "git@github.com:"
 	httpsForm := "https://github.com/"
-	rep := strings.NewReplacer(sshForm, httpsForm, ".git", "")
+	rep := strings.NewReplacer(sshForm, httpsForm, ".git", "", "\n", "")
 
 	url := rep.Replace(remoteUrl)
 
@@ -47,7 +47,7 @@ func replaceGithubUrl(remoteUrl string) string {
 func replaceGitlabUrl(remoteUrl string) string {
 	sshForm := "git@gitlab.com:"
 	httpsForm := "https://gitlab.com/"
-	rep := strings.NewReplacer(sshForm, httpsForm, ".git", "")
+	rep := strings.NewReplacer(sshForm, httpsForm, ".git", "", "\n", "")
 
 	url := rep.Replace(remoteUrl)
 
