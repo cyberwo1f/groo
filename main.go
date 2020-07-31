@@ -10,10 +10,12 @@ import (
 )
 
 var (
+	version = "v0.5.0"
+
 	command = &cobra.Command{
-		Use: "groo",
-		Short: "run in client mode",
-		Long: "",
+		Use: "groo [remote]",
+		Short: "run to open the web site for git remote.",
+		Version: version,
 		Run: execute,
 		Args: cobra.MinimumNArgs(1),
 	}
@@ -39,7 +41,6 @@ func checkError(err error) {
 
 func displayError(err error) {
 	fmt.Printf(aurora.Red("\n■■▶︎ ERROR: %s").String(), err.Error())
-	fmt.Printf(aurora.Red("\n■■▶︎ Aborting without taking further action\n").String())
 }
 
 func execute(cmd *cobra.Command, args []string) {
