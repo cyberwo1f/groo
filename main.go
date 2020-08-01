@@ -9,19 +9,24 @@ import (
 	"os"
 )
 
+// These variables are set in build step
 var (
-	version = "v0.5.0"
+	Version  = "unset"
+	Revision = "unset"
+)
 
+var (
+	target string
 	command = &cobra.Command{
-		Use: "groo [remote]",
-		Short: "run to open the web site for git remote.",
-		Version: version,
+		Use: "groo",
+		Short: "run to open the web site for git remote. the default target is the origin.",
+		Version: Version,
 		Run: execute,
-		Args: cobra.MinimumNArgs(1),
 	}
 )
 
 func init() {
+	command.Flags().StringVarP(&target, "remote", "r", "origin", "select of the target name.")
 }
 
 func main() {
@@ -44,6 +49,6 @@ func displayError(err error) {
 }
 
 func execute(cmd *cobra.Command, args []string) {
-	err := commands.OpenRemote(args[0])
+	err := commands.OpenRemote(target)
 	checkError(err)
 }
