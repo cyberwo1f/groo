@@ -1,0 +1,48 @@
+before:
+    hooks:
+        - go mod tidy
+builds:
+    -   env:
+            - CGO_ENABLED=0
+        main: .
+        ldflags:
+            - -s -w
+            - -X main.Version={{.Version}}
+            - -X main.Revision={{.ShortCommit}}
+        binary: groo
+        goos:
+            - darwin
+        goarch:
+            - amd64
+archives:
+    - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+      replacements:
+          darwin: macOS
+#          linux: linux
+#          windows: windows
+#          386: i386
+#          amd64: x86_64
+#      format_overrides:
+#          - goos: windows
+#            format: zip
+release:
+    prerelease: auto
+#checksum:
+#    name_template: 'checksums.txt'
+#snapshot:
+#    name_template: "{{ .Tag }}-next"
+#changelog:
+#    sort: asc
+#    filters:
+#        exclude:
+#            - '^docs:'
+#            - '^test:'
+brews:
+    -   github:
+            owner: cyberwo1f
+            name: homebrew-groo
+        folder: Formula
+        #      homepage: コマンドツールとしてのホームページ(どんなURLでも良い)
+        description: groo command is open the web site for current git remote.
+        test: |
+            system "#{bin}/groo -v"
