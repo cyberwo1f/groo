@@ -8,7 +8,7 @@ import (
 
 /*
 TODO Bitbucket Replace pattern
-Support domain list
+Supported domain list
 - github.com
 - gitlab.com
  */
@@ -54,6 +54,9 @@ func replaceGitlabUrl(remoteUrl string) string {
 	return url
 }
 
+/*
+Methods not currently used
+ */
 func replaceBitbucketUrl(remoteUrl string) string {
 	sshForm := "git@gitlab.com:"
 	httpsForm := "https://gitlab.com/"
