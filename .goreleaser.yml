@@ -21,7 +21,7 @@ archives:
 release:
     prerelease: auto
 brews:
-    -   github:
+    -   tap:
             owner: cyberwo1f
             name: homebrew-groo
         folder: Formula
