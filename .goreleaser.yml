@@ -1,0 +1,30 @@
+before:
+    hooks:
+        - go mod tidy
+builds:
+    -   env:
+            - CGO_ENABLED=0
+        main: .
+        ldflags:
+            - -s -w
+            - -X main.Version={{.Version}}
+            - -X main.Revision={{.ShortCommit}}
+        binary: groo
+        goos:
+            - darwin
+        goarch:
+            - amd64
+archives:
+    - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+      replacements:
+          darwin: macOS
+release:
+    prerelease: auto
+brews:
+    -   github:
+            owner: cyberwo1f
+            name: homebrew-groo
+        folder: Formula
+        description: groo command is open the web site for current git remote.
+        test: |
+            system "#{bin}/groo -v"
