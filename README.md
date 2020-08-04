@@ -22,6 +22,12 @@ groo -r [remote]
 
 ### Installation on OS X using Homebrew
 
+First, you need to run the tap command:
+```bash
+brew tap cyberwo1f/groo
+```
+
+Next, run the install command:
 ```bash
 brew install groo
 ```
