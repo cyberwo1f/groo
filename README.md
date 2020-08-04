@@ -27,3 +27,6 @@ brew install groo
 ```
 
 **Currently, only Mac OS is supported.**
+
+## License
+MIT
