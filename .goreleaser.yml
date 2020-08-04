@@ -28,3 +28,5 @@ brews:
         description: groo command is open the web site for current git remote.
         test: |
             system "#{bin}/groo -v"
+        install: |
+            bin.install "groo"
