@@ -1,32 +1,32 @@
-before:
-    hooks:
-        - go mod tidy
+version: 2
+
 builds:
-    -   env:
-            - CGO_ENABLED=0
-        main: .
-        ldflags:
-            - -s -w
-            - -X main.Version={{.Version}}
-            - -X main.Revision={{.ShortCommit}}
-        binary: groo
-        goos:
-            - darwin
-        goarch:
-            - amd64
+  - binary: groo
+    main: .
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.Version={{ .Version }}
+
 archives:
-    - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
-      replacements:
-          darwin: macOS
+  - name_template: '{{ .ProjectName }}_{{ if eq .Os "darwin" }}macOS{{ else }}{{ .Os }}{{ end }}_{{ .Arch }}'
+
 release:
-    prerelease: auto
-brews:
-    -   tap:
-            owner: cyberwo1f
-            name: homebrew-groo
-        folder: Formula
-        description: groo command is open the web site for current git remote.
-        test: |
-            system "#{bin}/groo -v"
-        install: |
-            bin.install "groo"
+  prerelease: auto
+
+homebrew_casks:
+  - repository:
+      owner: cyberwo1f
+      name: homebrew-groo
+    directory: Casks
+    homepage: https://github.com/cyberwo1f/groo
+    description: Opens the website for the current Git remote
+    license: MIT
+    binaries:
+      - groo
