@@ -29,7 +29,7 @@ brew tap cyberwo1f/groo
 
 Next, run the install command:
 ```bash
-brew install groo
+brew install --cask groo
 ```
 
 **Currently, only Mac OS is supported.**
